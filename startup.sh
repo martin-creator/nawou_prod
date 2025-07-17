@@ -1,72 +1,78 @@
 #!/bin/bash
 set -euo pipefail
 
-# Create logs directory if it doesn't exist
+# --- Logging Setup ---
 mkdir -p /home/logs
-
-# Initialize logging
 LOG_FILE="/home/logs/startup.log"
 exec > >(tee -a "$LOG_FILE") 2>&1
 echo "----- Startup Script Execution Started [$(date)] -----"
 
-# 1. Configure Nginx
-NGINX_CONF="/home/site/wwwroot/default.conf"
+# --- Paths ---
+APP_ROOT="/home/site/wwwroot"
+NGINX_CONF="$APP_ROOT/default.conf"
 NGINX_TARGET="/etc/nginx/conf.d/default.conf"
 
+# --- Step 1: Custom Nginx Configuration ---
 echo "Checking for custom Nginx configuration..."
 if [ -f "$NGINX_CONF" ]; then
     echo "Found custom configuration. Deploying..."
     cp -v "$NGINX_CONF" "$NGINX_TARGET"
     
-    # Validate configuration
     if ! nginx -t; then
         echo "ERROR: Invalid Nginx configuration"
         exit 1
     fi
-    
-    # Stop any existing nginx (fixes 'Address already in use' errors)
+
     service nginx stop || true
 else
     echo "No custom Nginx configuration found. Using defaults."
 fi
 
-# 2. Prepare Laravel Environment
+# --- Step 2: Laravel Setup ---
 echo "Preparing Laravel environment..."
-APP_ROOT="/home/site/wwwroot"
 
 # Set proper permissions
 chmod -R 775 "$APP_ROOT/storage" "$APP_ROOT/bootstrap/cache"
 chown -R www-data:www-data "$APP_ROOT"
 
-# Verify critical directories
-for dir in "$APP_ROOT/public/build" "$APP_ROOT/storage/framework"; do
+# Laravel required directories check
+for dir in "$APP_ROOT/storage/framework" "$APP_ROOT/public/build"; do
     if [ ! -d "$dir" ]; then
         echo "ERROR: Missing required directory: $dir"
         exit 1
     fi
 done
 
-# 3. Start Services
+# Optional: Laravel cache clear (use only if needed)
+# php artisan config:clear
+# php artisan route:clear
+# php artisan view:clear
+
+# --- Step 3: PHP-FPM Setup ---
+echo "Setting up PHP-FPM..."
+
+mkdir -p /run/php
+chown www-data:www-data /run/php
+
 echo "Stopping any existing PHP-FPM..."
 pkill -f "php-fpm" || true
 
 echo "Starting PHP-FPM..."
 php-fpm -D -y /usr/local/etc/php-fpm.conf
 
+# --- Step 4: Start Nginx ---
 echo "Starting Nginx..."
 service nginx start
 
-# 4. Health Check
+# --- Step 5: Health Checks ---
 echo "Performing health checks..."
-sleep 5  # Allow services to start
+sleep 5
 
-# Check PHP-FPM
 if ! pgrep -f "php-fpm" >/dev/null; then
     echo "ERROR: PHP-FPM failed to start"
     exit 1
 fi
 
-# Check Nginx
 if ! pgrep "nginx" >/dev/null; then
     echo "ERROR: Nginx failed to start"
     exit 1
