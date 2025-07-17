@@ -1,40 +1,50 @@
 #!/bin/bash
 
-echo "Copying custom default.conf over to /etc/nginx/sites-available/default.conf"
+echo "🔧 Starting Laravel app on Azure..."
 
 NGINX_CONF=/home/site/wwwroot/default.conf
 APP_ROOT=/home/site/wwwroot
 
-echo "✔ Starting Laravel app on Azure..."
-
-# Step 1: Ensure NGINX is configured
-if [ -f /home/site/wwwroot/default.conf ]; then
-    echo "✔ Copying custom NGINX config..."
-    cp /home/site/wwwroot/default.conf /etc/nginx/sites-available/default
+# Step 1: Set up NGINX
+if [ -f "$NGINX_CONF" ]; then
+    echo "✔ Copying custom NGINX config to /etc/nginx/sites-available/default"
+    cp "$NGINX_CONF" /etc/nginx/sites-available/default
 else
-    echo "⚠ No custom NGINX config found. Using default."
+    echo "⚠ No custom NGINX config found at $NGINX_CONF. Using default."
 fi
 
-# Step 2: Set permissions (optional, but good practice)
-chmod -R 775 /home/site/wwwroot/storage /home/site/wwwroot/bootstrap/cache
+# Step 2: Ensure correct permissions
+echo "✔ Setting permissions for storage and cache..."
+chmod -R 775 $APP_ROOT/storage $APP_ROOT/bootstrap/cache
 
-# Step 3: Generate APP_KEY if missing
-cd /home/site/wwwroot
-if grep -q 'APP_KEY=base64:' .env; then
+# Step 3: Check and generate .env if missing
+if [ ! -f "$APP_ROOT/.env" ]; then
+    echo "⚠ .env file not found. Creating a minimal default one..."
+    cp "$APP_ROOT/.env.example" "$APP_ROOT/.env"
+fi
+
+# Step 4: Generate APP_KEY if not already set
+cd $APP_ROOT
+if grep -q '^APP_KEY=base64:' .env; then
     echo "✔ APP_KEY exists."
 else
-    echo "✔ Generating APP_KEY..."
+    echo "🔑 Generating APP_KEY..."
     php artisan key:generate
 fi
 
-# Step 4: Start PHP-FPM and NGINX
-echo "✔ Starting PHP-FPM and NGINX..."
+# Step 5: Start PHP-FPM and NGINX
+echo "🚀 Starting services..."
 service php8.3-fpm start
 service nginx start
 
-# Keep container alive
-echo "✔ Laravel container ready. Tailing logs..."
+# Step 6: Run migrations (optional - comment out if not needed)
+# echo "🛠 Running database migrations..."
+# php artisan migrate --force
+
+# Step 7: Keep the container alive
+echo "📌 Laravel container ready. Tailing logs..."
 tail -f /dev/null
+
 
 
 
