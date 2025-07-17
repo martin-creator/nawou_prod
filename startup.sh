@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+# Create logs directory if it doesn't exist
+mkdir -p /home/logs
+
 # Initialize logging
 LOG_FILE="/home/logs/startup.log"
 exec > >(tee -a "$LOG_FILE") 2>&1
@@ -21,11 +24,8 @@ if [ -f "$NGINX_CONF" ]; then
         exit 1
     fi
     
-    # Reload configuration
-    if ! nginx -s reload; then
-        echo "WARNING: Nginx reload failed, attempting full restart"
-        service nginx restart
-    fi
+    # Stop any existing nginx (fixes 'Address already in use' errors)
+    service nginx stop || true
 else
     echo "No custom Nginx configuration found. Using defaults."
 fi
@@ -47,11 +47,14 @@ for dir in "$APP_ROOT/public/build" "$APP_ROOT/storage/framework"; do
 done
 
 # 3. Start Services
+echo "Stopping any existing PHP-FPM..."
+pkill -f "php-fpm" || true
+
 echo "Starting PHP-FPM..."
 php-fpm -D -y /usr/local/etc/php-fpm.conf
 
 echo "Starting Nginx..."
-exec nginx -g 'daemon off;' &
+service nginx start
 
 # 4. Health Check
 echo "Performing health checks..."
