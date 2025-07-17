@@ -1,0 +1,257 @@
+[
+  {
+    "name": "APP_DEBUG",
+    "value": "true",
+    "slotSetting": true
+  },
+  {
+    "name": "APP_ENV",
+    "value": "production",
+    "slotSetting": true
+  },
+  {
+    "name": "APP_FAKER_LOCALE",
+    "value": "en_US",
+    "slotSetting": true
+  },
+  {
+    "name": "APP_FALLBACK_LOCALE",
+    "value": "en",
+    "slotSetting": true
+  },
+  {
+    "name": "APP_KEY",
+    "value": "base64:gEM186dpUQ9A2V6L+2rSI70rr4Ls7lMpFL/LSdpSs+k=",
+    "slotSetting": true
+  },
+  {
+    "name": "APP_LOCALE",
+    "value": "en",
+    "slotSetting": true
+  },
+  {
+    "name": "APP_MAINTENANCE_DRIVER",
+    "value": "file",
+    "slotSetting": true
+  },
+  {
+    "name": "APP_NAME",
+    "value": "NAWOU",
+    "slotSetting": true
+  },
+  {
+    "name": "APP_URL",
+    "value": "https://nawou-org-dab8ghgpbrg0cngc.canadacentral-01.azurewebsites.net/",
+    "slotSetting": true
+  },
+  {
+    "name": "ASSET_URL",
+    "value": "${APP_URL}",
+    "slotSetting": false
+  },
+  {
+    "name": "AWS_ACCESS_KEY_ID",
+    "value": "",
+    "slotSetting": true
+  },
+  {
+    "name": "AWS_BUCKET",
+    "value": "",
+    "slotSetting": true
+  },
+  {
+    "name": "AWS_DEFAULT_REGION",
+    "value": "us-east-1",
+    "slotSetting": true
+  },
+  {
+    "name": "AWS_SECRET_ACCESS_KEY",
+    "value": "",
+    "slotSetting": true
+  },
+  {
+    "name": "AWS_USE_PATH_STYLE_ENDPOINT",
+    "value": "false",
+    "slotSetting": true
+  },
+  {
+    "name": "AZURE_POSTGRESQL_CONNECTIONSTRING",
+    "value": "host=nawou.postgres.database.azure.com port=5432 dbname=nawou-db sslmode=require user=dwfjfbxjvw password=$oNIg3sKByPpxXVs",
+    "slotSetting": true
+  },
+  {
+    "name": "BCRYPT_ROUNDS",
+    "value": "12",
+    "slotSetting": true
+  },
+  {
+    "name": "BROADCAST_CONNECTION",
+    "value": "log",
+    "slotSetting": true
+  },
+  {
+    "name": "CACHE_STORE",
+    "value": "database",
+    "slotSetting": true
+  },
+  {
+    "name": "DB_CONNECTION",
+    "value": "pgsql",
+    "slotSetting": true
+  },
+  {
+    "name": "DB_DATABASE",
+    "value": "nawou_006m",
+    "slotSetting": true
+  },
+  {
+    "name": "DB_HOST",
+    "value": "dpg-d1jos7ali9vc738ik8v0-a.oregon-postgres.render.com",
+    "slotSetting": true
+  },
+  {
+    "name": "DB_PASSWORD",
+    "value": "crUQ2wu9HmEyEWfGztMbZsFH3J4zfMAS",
+    "slotSetting": true
+  },
+  {
+    "name": "DB_PORT",
+    "value": "5432",
+    "slotSetting": true
+  },
+  {
+    "name": "DB_USERNAME",
+    "value": "nawou",
+    "slotSetting": true
+  },
+  {
+    "name": "FILESYSTEM_DISK",
+    "value": "local",
+    "slotSetting": true
+  },
+  {
+    "name": "LOG_CHANNEL",
+    "value": "stack",
+    "slotSetting": true
+  },
+  {
+    "name": "LOG_DEPRECATIONS_CHANNEL",
+    "value": "null",
+    "slotSetting": true
+  },
+  {
+    "name": "LOG_LEVEL",
+    "value": "debug",
+    "slotSetting": true
+  },
+  {
+    "name": "LOG_STACK",
+    "value": "single",
+    "slotSetting": true
+  },
+  {
+    "name": "MAIL_FROM_ADDRESS",
+    "value": "hello@example.com",
+    "slotSetting": true
+  },
+  {
+    "name": "MAIL_FROM_NAME",
+    "value": "${APP_NAME}",
+    "slotSetting": true
+  },
+  {
+    "name": "MAIL_HOST",
+    "value": "127.0.0.1",
+    "slotSetting": true
+  },
+  {
+    "name": "MAIL_MAILER",
+    "value": "log",
+    "slotSetting": true
+  },
+  {
+    "name": "MAIL_PASSWORD",
+    "value": "null",
+    "slotSetting": true
+  },
+  {
+    "name": "MAIL_PORT",
+    "value": "2525",
+    "slotSetting": true
+  },
+  {
+    "name": "MAIL_SCHEME",
+    "value": "null",
+    "slotSetting": true
+  },
+  {
+    "name": "MAIL_USERNAME",
+    "value": "null",
+    "slotSetting": true
+  },
+  {
+    "name": "MEMCACHED_HOST",
+    "value": "127.0.0.1",
+    "slotSetting": true
+  },
+  {
+    "name": "PHP_CLI_SERVER_WORKERS",
+    "value": "4",
+    "slotSetting": true
+  },
+  {
+    "name": "QUEUE_CONNECTION",
+    "value": "database",
+    "slotSetting": true
+  },
+  {
+    "name": "REDIS_CLIENT",
+    "value": "phpredis",
+    "slotSetting": true
+  },
+  {
+    "name": "REDIS_HOST",
+    "value": "127.0.0.1",
+    "slotSetting": true
+  },
+  {
+    "name": "REDIS_PASSWORD",
+    "value": "null",
+    "slotSetting": true
+  },
+  {
+    "name": "REDIS_PORT",
+    "value": "6379",
+    "slotSetting": true
+  },
+  {
+    "name": "SESSION_DOMAIN",
+    "value": "null",
+    "slotSetting": true
+  },
+  {
+    "name": "SESSION_DRIVER",
+    "value": "cookie",
+    "slotSetting": true
+  },
+  {
+    "name": "SESSION_ENCRYPT",
+    "value": "false",
+    "slotSetting": true
+  },
+  {
+    "name": "SESSION_LIFETIME",
+    "value": "120",
+    "slotSetting": true
+  },
+  {
+    "name": "SESSION_PATH",
+    "value": "/",
+    "slotSetting": true
+  },
+  {
+    "name": "VITE_APP_NAME",
+    "value": "${APP_NAME}",
+    "slotSetting": true
+  }
+]
