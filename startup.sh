@@ -10,3 +10,7 @@ if [ -f "$NGINX_CONF" ]; then
 else
     echo "File does not exist, skipping cp."
 fi
+
+# 3. Start services
+php-fpm -D
+ginx -g 'daemon off;'
