@@ -18,4 +18,10 @@ export default defineConfig({
     esbuild: {
         jsx: 'automatic',
     },
+
+    build: {
+        rollupOptions: {
+          external: ['ziggy-js'],
+        },
+      },
 });
