@@ -37,7 +37,13 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     toast.error(`${key} error`, { description: errors[key], closeButton: true, className: 'capitalize' });
                 }
             },
-            onFinish: () => reset('password'),
+            onFinish: () => {
+                reset('password');
+                // Auto refresh page after login request is completed
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000); // 1 second delay to allow any success messages to show
+            },
         });
     };
 
