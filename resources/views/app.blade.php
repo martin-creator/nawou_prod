@@ -15,10 +15,6 @@
     <meta name="theme-color" content="#ffffff">
 
 
-
-    <!-- @routes -->
-
-    <!-- @routes(url()->current()) {{-- or use url('') --}} -->
     @routes
     @viteReactRefresh
     @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
